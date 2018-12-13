@@ -24,7 +24,7 @@ end
 
 Compute weights for Barycentric Lagrange interpolation.
 """
-function bclag_interp_weights(x)
+function bclag_interp_weights(x::Vector)
     n = length(x)
     w = zeros(n)
     for j=1:n
@@ -33,7 +33,8 @@ function bclag_interp_weights(x)
     return w
 end
 
-function bclag_interp_eval(x::Vector, f::Vector, xx::Number, w::Vector)
+function bclag_interp_eval(x::Vector, f::Vector, xx::Number,
+                           w::Vector = bclag_interp_weights(x))
     n = length(x)
     @assert length(f) == length(w) == n
     numer = 0.0
@@ -59,7 +60,7 @@ Barycentric Lagrange interpolation of `f` from points `x` to points `xx`
 `w` is vector of weights, `w = bclag_interp_weights(x)` 
 """
 function bclag_interp_eval(x::Vector, f::Vector, xx::Vector,
-                           w=bclag_interp_weights(x))
+                           w::Vector = bclag_interp_weights(x))
     n = length(xx)
     ff = zeros(n)
     for j=1:n
@@ -76,7 +77,8 @@ Compute the matrix `M` such that `ff = M*f` gives the barycentric Lagrange inter
 
 `w` is vector of weights, `w = bclag_interp_weights(x)` 
 """
-function bclag_interp_matrix(x, xx, w=bclag_interp_weights(x))
+function bclag_interp_matrix(x::Vector, xx::Vector,
+                             w::Vector = bclag_interp_weights(x))
     n = length(x)
     N = length(xx)
     @assert length(w)==n
