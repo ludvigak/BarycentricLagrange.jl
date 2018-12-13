@@ -8,6 +8,8 @@ export bclag_interp_eval
 export bclag_interp_matrix
 export bclag_interp_weights
 
+using Compat
+
 function bclag_interp_weight(x, j, n)
     p = 1.0
     for k=1:j-1
