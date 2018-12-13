@@ -88,15 +88,17 @@ function bclag_interp_matrix(x::Vector, xx::Vector,
 end
 
 function matrix_alloc(n, N)
-    B = zeros(N, n)
-    denom = zeros(N)
-    exact = zeros(Int64, N)
+    B = Array{Float64}(undef, N, n)
+    denom = Array{Float64}(undef, N)
+    exact = Array{Int64}(undef, N)
     return B, denom, exact
 end
 
 function compute_matrix!(B, denom, exact, x, xx, w)
     # No allocations or size checks done here
     N, n = size(B)
+    fill!(denom, 0.0)
+    fill!(exact, 0)
     for j=1:n
         for k=1:N
             xdiff = xx[k]-x[j]
