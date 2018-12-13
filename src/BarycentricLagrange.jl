@@ -82,9 +82,21 @@ function bclag_interp_matrix(x::Vector, xx::Vector,
     n = length(x)
     N = length(xx)
     @assert length(w)==n
+    B, denom, exact = matrix_alloc(n, N)
+    compute_matrix!(B, denom, exact, x, xx, w)    
+    return B
+end
+
+function matrix_alloc(n, N)
     B = zeros(N, n)
     denom = zeros(N)
     exact = zeros(Int64, N)
+    return B, denom, exact
+end
+
+function compute_matrix!(B, denom, exact, x, xx, w)
+    # No allocations or size checks done here
+    N, n = size(B)
     for j=1:n
         for k=1:N
             xdiff = xx[k]-x[j]
@@ -97,7 +109,6 @@ function bclag_interp_matrix(x::Vector, xx::Vector,
             end
         end
     end
-
     B ./= denom
     for jj=1:N
         if exact[jj] != 0
@@ -105,7 +116,6 @@ function bclag_interp_matrix(x::Vector, xx::Vector,
             B[jj + N*(exact[jj]-1)] = 1.0
         end
     end
-    return B
 end
 
 end # module
