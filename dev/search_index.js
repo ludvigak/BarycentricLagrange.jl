@@ -25,10 +25,10 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "#BarycentricLagrange.bclag_interp_eval",
+    "location": "#BarycentricLagrange.bclag_interp_eval-Union{Tuple{T}, Tuple{Array{T,1} where T,Array{T,1},Array{T,1} where T}, Tuple{Array{T,1} where T,Array{T,1},Array{T,1} where T,Array{T,1} where T}} where T",
     "page": "BarycentricLagrange.jl Documentation",
     "title": "BarycentricLagrange.bclag_interp_eval",
-    "category": "function",
+    "category": "method",
     "text": "ff = bclag_interp_eval(x, f, xx [, w])\n\nBarycentric Lagrange interpolation of f from points x to points xx\n\nw is vector of weights, w = bclag_interp_weights(x) \n\n\n\n\n\n"
 },
 
