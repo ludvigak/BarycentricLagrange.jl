@@ -35,11 +35,11 @@ function bclag_interp_weights(x::Vector)
     return w
 end
 
-function bclag_interp_eval(x::Vector, f::Vector, xx::Number,
-                           w::Vector = bclag_interp_weights(x))
+function bclag_interp_eval(x::Vector, f::Vector{T}, xx::Number,
+                           w::Vector = bclag_interp_weights(x)) where T
     n = length(x)
     @assert length(f) == length(w) == n
-    numer = 0.0
+    numer = zero(T)
     denom = 0.0
     for j=1:n
         xdiff = xx-x[j]
@@ -61,10 +61,10 @@ Barycentric Lagrange interpolation of `f` from points `x` to points `xx`
 
 `w` is vector of weights, `w = bclag_interp_weights(x)` 
 """
-function bclag_interp_eval(x::Vector, f::Vector, xx::Vector,
-                           w::Vector = bclag_interp_weights(x))
+function bclag_interp_eval(x::Vector, f::Vector{T}, xx::Vector,
+                           w::Vector = bclag_interp_weights(x)) where T
     n = length(xx)
-    ff = zeros(n)
+    ff = Array{T}(undef, n)
     for j=1:n
         ff[j] = bclag_interp_eval(x, f, xx[j], w)
     end
